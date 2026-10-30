@@ -1,0 +1,21 @@
+{
+  "name": "credresolve-smartdialer",
+  "version": "1.0.0",
+  "description": "A safety-first SmartDialer prototype for the CredResolve Full Stack Engineer assignment",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test tests/safety.test.js",
+    "simulate": "node src/simulate.js",
+    "loadtest": "node src/load-test.js",
+    "reset": "node src/reset-db.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {}
+}

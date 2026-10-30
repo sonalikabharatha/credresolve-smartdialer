@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CredResolve | SmartDialer</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><span class="brand-mark">CR</span><span class="brand">CredResolve</span><small>SMARTDIALER</small></div>
+    <span class="live"><i></i> SIMULATION ENVIRONMENT</span>
+  </header>
+  <main class="container">
+    <section class="intro">
+      <div><p class="eyebrow">COLLECTIONS OPERATIONS</p><h1>SmartDialer Control Center</h1><p class="muted">Safety-first outbound calling with progressive and predictive pacing.</p></div>
+      <button class="secondary" onclick="refreshAll()">↻ Refresh data</button>
+    </section>
+    <section class="metrics" id="metrics">
+      <article><span>Total agents</span><strong id="totalAgents">0</strong><small>Registered agents</small></article>
+      <article><span>Available agents</span><strong id="availableAgents">0</strong><small>Ready to receive calls</small></article>
+      <article><span>Agent utilization</span><strong id="utilization">0%</strong><small>Reserved / dialing / connected</small></article>
+      <article><span>Total calls</span><strong id="totalCalls">0</strong><small>All call attempts</small></article>
+      <article><span>Completed</span><strong id="completedCalls">0</strong><small>Successful lifecycle</small></article>
+      <article><span>Failed</span><strong id="failedCalls">0</strong><small>Failed attempts</small></article>
+    </section>
+    <section class="grid">
+      <article class="panel">
+        <div class="panel-head"><div><p class="eyebrow">WORKFORCE</p><h2>Agent management</h2></div><span class="pill">Live state</span></div>
+        <form id="agentForm" class="inline-form"><input name="name" placeholder="Agent name" required><button>Add agent</button></form>
+        <div class="table-wrap"><table><thead><tr><th>Agent</th><th>State</th><th>Action</th></tr></thead><tbody id="agentsBody"></tbody></table></div>
+      </article>
+      <article class="panel">
+        <div class="panel-head"><div><p class="eyebrow">CALL QUEUE</p><h2>Borrowers</h2></div><span class="pill" id="queueCount">0 queued</span></div>
+        <form id="borrowerForm" class="stack-form"><input name="name" placeholder="Borrower name" required><input name="phone" placeholder="Phone number" required><button>Add borrower</button></form>
+        <button class="secondary full" id="seedBtn">Add 10 demo borrowers</button>
+        <p class="muted small">Demo data uses fictional names and phone numbers.</p>
+      </article>
+    </section>
+    <section class="grid">
+      <article class="panel">
+        <div class="panel-head"><div><p class="eyebrow">DIALING STRATEGY</p><h2>Launch dialer</h2></div></div>
+        <div class="dial-actions"><button id="progressiveBtn">Run progressive</button><button id="predictiveBtn" class="accent">Run predictive</button></div>
+        <label>Requested calls <input id="requestedCount" type="number" min="1" max="500" value="5"></label>
+        <label>Estimated answer rate <output id="rateOut">35%</output><input id="answerRate" type="range" min="10" max="90" value="35"></label>
+        <p class="muted small">Predictive pacing proposes a dial count. The independent Safety Controller applies the final limit.</p>
+        <pre id="dialResult" class="result">Ready. Add agents and borrowers to begin.</pre>
+      </article>
+      <article class="panel">
+        <div class="panel-head"><div><p class="eyebrow">SAFETY BOUNDARY</p><h2>System guarantees</h2></div><span class="status-ok">ENABLED</span></div>
+        <ul class="guarantees">
+          <li><b>Atomic reservation</b><span>Agent and borrower are reserved in a database transaction.</span></li>
+          <li><b>One live call per agent</b><span>A partial unique index blocks duplicate live allocations.</span></li>
+          <li><b>Idempotent events</b><span>Duplicate provider event IDs are ignored.</span></li>
+          <li><b>Transition validation</b><span>Out-of-order state transitions are rejected and logged.</span></li>
+        </ul>
+      </article>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><div><p class="eyebrow">ACTIVITY</p><h2>Recent calls</h2></div></div>
+      <div class="table-wrap"><table><thead><tr><th>ID</th><th>Borrower</th><th>Agent</th><th>Provider</th><th>Status</th><th>Created</th></tr></thead><tbody id="callsBody"></tbody></table></div>
+    </section>
+    <footer>CredResolve SmartDialer prototype · Mock providers only · Not connected to a real telecom network</footer>
+  </main>
+  <div id="toast" role="status"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
